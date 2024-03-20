@@ -21,6 +21,8 @@ model User {
   country         String
   city            String
   deliveryAddress String
+  createdItems    Item[]   @relation("CreatedBy")
+  ownedItems      Item[]   @relation("OwnedBy")
 }
 
 enum Role {
@@ -29,9 +31,15 @@ enum Role {
 }
 
 model Item {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  price       Float
-  photos      String[]
+  id              String   @id @default(uuid())
+  name            String
+  description     String
+  price           Float?
+  photos          String[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdBy       User     @relation("CreatedBy", fields: [createdByUserId], references: [id])
+  createdByUserId String
+  ownedBy         User     @relation("OwnedBy", fields: [ownedByUserId], references: [id])
+  ownedByUserId   String
 }
