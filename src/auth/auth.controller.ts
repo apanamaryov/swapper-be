@@ -8,7 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
+import { CredentialsDTO } from './dto/credentials-dto';
 
 @Controller('auth')
 export class AuthController {
@@ -17,6 +18,11 @@ export class AuthController {
   @Post('signUp')
   signUp(@Body() userData: Prisma.UserCreateInput) {
     return this.authService.createUser(userData);
+  }
+
+  @Post('signIn')
+  async signIn(@Body() credentials: CredentialsDTO): Promise<Omit<User, 'password'>> {
+    return this.authService.signIn(credentials);
   }
 
   @Get('users')
