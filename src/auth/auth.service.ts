@@ -1,30 +1,43 @@
-import {Body, Injectable, UnauthorizedException} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User } from '@prisma/client';
-import { CredentialsDTO } from "./dto/credentials-dto";
+import { CredentialsDTO } from './dto/credentials-dto';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
 
-  createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({ data });
+  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+    const hashPass = await bcrypt.hash(data.password, 10);
+    return this.prisma.user.create({
+      data: {
+        ...data,
+        password: hashPass,
+      },
+    });
   }
 
-  async signIn(credentials: CredentialsDTO): Promise<Omit<User, 'password'>> {
+  async signIn(credentials: CredentialsDTO): Promise<{ accessToken: string }> {
     const user = await this.prisma.user.findUnique({
       where: { email: credentials.email },
     });
 
-    if (user.password !== credentials.password) {
+    const isMatch = await bcrypt.compare(credentials.password, user?.password);
+    if (!isMatch) {
       throw new UnauthorizedException();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...result } = user;
-    // TODO: Generate a JWT and return it here
-    // instead of the user object
-    return result;
+    return {
+      accessToken: await this.jwtService.signAsync({
+        sub: user.id,
+        email: user.email,
+      }),
+    };
   }
 
   async user(

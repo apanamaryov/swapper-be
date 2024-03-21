@@ -6,10 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Prisma, User } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { CredentialsDTO } from './dto/credentials-dto';
+import { AuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -20,26 +24,33 @@ export class AuthController {
     return this.authService.createUser(userData);
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('signIn')
-  async signIn(@Body() credentials: CredentialsDTO): Promise<Omit<User, 'password'>> {
+  async signIn(
+    @Body() credentials: CredentialsDTO,
+  ): Promise<{ accessToken: string }> {
     return this.authService.signIn(credentials);
   }
 
+  @UseGuards(AuthGuard)
   @Get('users')
   getUsers(@Body() params: Prisma.UserFindManyArgs) {
     return this.authService.users(params);
   }
 
+  @UseGuards(AuthGuard)
   @Get('user/:id')
   getUser(@Param('id') id: string) {
     return this.authService.user({ id });
   }
 
+  @UseGuards(AuthGuard)
   @Patch('user/:id')
   updateUser(@Param('id') id: string, @Body() data: Prisma.UserUpdateInput) {
     return this.authService.updateUser({ where: { id }, data });
   }
 
+  @UseGuards(AuthGuard)
   @Delete('user/:id')
   deleteUser(@Param('id') id: string) {
     return this.authService.deleteUser({ id });
