@@ -20,7 +20,9 @@ model User {
   birthDay        String
   country         String
   city            String
-  deliveryAddress String
+  deliveryAddress String?
+  phone           String?
+  isActive        Boolean  @default(true)
   createdItems    Item[]   @relation("CreatedBy")
   ownedItems      Item[]   @relation("OwnedBy")
 }
@@ -34,6 +36,7 @@ model Item {
   id              String   @id @default(uuid())
   name            String
   description     String
+  isActive        Boolean  @default(true)
   price           Float?
   photos          String[]
   createdAt       DateTime @default(now())
