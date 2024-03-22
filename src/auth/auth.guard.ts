@@ -12,7 +12,7 @@ import { ConfigService } from '@nestjs/config';
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
-    private consfig: ConfigService,
+    private config: ConfigService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -23,8 +23,9 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: this.consfig.get<string>('SECRET'),
+        secret: this.config.get<string>('SECRET'),
       });
+
       request['user'] = payload;
     } catch {
       throw new UnauthorizedException();

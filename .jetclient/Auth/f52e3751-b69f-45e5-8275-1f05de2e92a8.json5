@@ -1,0 +1,102 @@
+{
+  id : "f52e3751-b69f-45e5-8275-1f05de2e92a8",
+  name : "Auth",
+  icon : "FOLDER",
+  sortWeight : 1000000,
+  requests : [
+    {
+      id : "1c757585-3a9b-4fa6-a9d6-65e54630c5c8",
+      name : "signUp",
+      method : "POST",
+      url : "http://localhost:3000/auth/signUp",
+      headers : [
+        {
+          key : "Content-Type",
+          value : "application/x-www-form-urlencoded"
+        }
+      ],
+      body : {
+        type : "FORM_URL_ENCODED",
+        urlEncoded : [
+          {
+            key : "email",
+            value : "panamarev@gmail.com"
+          },
+          {
+            key : "password",
+            value : "passwd123"
+          },
+          {
+            key : "firstName",
+            value : "Alexey"
+          },
+          {
+            key : "lastName",
+            value : "Panamaryov"
+          },
+          {
+            key : "birthDay",
+            value : "02.12.1985"
+          },
+          {
+            key : "country",
+            value : "Ukraine"
+          },
+          {
+            key : "city",
+            value : "Odessa"
+          }
+        ]
+      }
+    },
+    {
+      id : "a999b87b-240f-4cdc-b3f1-de8d0c67f10e",
+      name : "signIn",
+      method : "POST",
+      url : "http://localhost:3000/auth/signIn",
+      headers : [
+        {
+          key : "Content-Type",
+          value : "application/x-www-form-urlencoded"
+        }
+      ],
+      body : {
+        type : "FORM_URL_ENCODED",
+        urlEncoded : [
+          {
+            key : "email",
+            value : "panamarev@gmail.com"
+          },
+          {
+            key : "password",
+            value : "passwd123"
+          }
+        ]
+      }
+    },
+    {
+      id : "6ac9a34d-db95-4782-9982-c4b9641c0ea1",
+      name : "users",
+      method : "GET",
+      url : "http://localhost:3000/auth/users",
+      auth : {
+        type : "BEARER",
+        bearer : {
+          token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWYwZmU1YS1iZTk5LTQyNDktOTkzOC02Mjk4OTZjMWY5NTEiLCJlbWFpbCI6InBhbmFtYXJldkBnbWFpbC5jb20iLCJpYXQiOjE3MTEwMjY4MDQsImV4cCI6MTcxMTAyNjk4NH0.xRNSUfUyy4dL3TWpPYMfL6XAnedY69HFvzTGWJODovk"
+        }
+      }
+    },
+    {
+      id : "2096f0b3-74ad-467c-8d47-a4d6927b99af",
+      name : "user",
+      method : "GET",
+      url : "http://localhost:3000/auth/user/65f0fe5a-be99-4249-9938-629896c1f951",
+      auth : {
+        type : "BEARER",
+        bearer : {
+          token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWYwZmU1YS1iZTk5LTQyNDktOTkzOC02Mjk4OTZjMWY5NTEiLCJlbWFpbCI6InBhbmFtYXJldkBnbWFpbC5jb20iLCJpYXQiOjE3MTEwMjY4OTQsImV4cCI6MTcxMTAyNzA3NH0.YTNq-JDzgP9B3fQrkS1I_i50vnnTkTvFXFJBGyHEBm0"
+        }
+      }
+    }
+  ]
+}
