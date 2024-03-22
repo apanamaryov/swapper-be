@@ -8,14 +8,16 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
-  UseGuards,
+  UseGuards, Req,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Prisma } from '@prisma/client';
 import { CredentialsDTO } from './dto/credentials-dto';
 import { AuthGuard } from './auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
