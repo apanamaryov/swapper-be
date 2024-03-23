@@ -37,4 +37,11 @@ export class ItemService {
       where,
     });
   }
+
+  changeOwner(id: string, newOwnerId: string): Promise<Item> {
+    return this.prisma.item.update({
+      where: { id },
+      data: { ownedBy: { connect: { id: newOwnerId } } },
+    });
+  }
 }

@@ -25,6 +25,9 @@ model User {
   isActive        Boolean  @default(true)
   createdItems    Item[]   @relation("CreatedBy")
   ownedItems      Item[]   @relation("OwnedBy")
+  createdSwaps    Swap[]   @relation("SwapCreatedBy")
+  swapsFrom       Swap[]   @relation("SwapFrom")
+  swapsTo         Swap[]   @relation("SwapTo")
 }
 
 enum Role {
@@ -45,4 +48,29 @@ model Item {
   createdByUserId String
   ownedBy         User     @relation("OwnedBy", fields: [ownedByUserId], references: [id])
   ownedByUserId   String
+  outgoingSwap    Swap?    @relation("OutgoingItems", fields: [outgoingSwapId], references: [id])
+  outgoingSwapId  String?
+  incomingSwap    Swap?    @relation("IncomingItems", fields: [incomingSwapId], references: [id])
+  incomingSwapId  String?
+}
+
+model Swap {
+  id              String     @id @default(uuid())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  createdBy       User       @relation("SwapCreatedBy", fields: [createdByUserId], references: [id])
+  createdByUserId String
+  status          SwapStatus @default(PENDING)
+  fromUser        User       @relation("SwapFrom", fields: [fromUserId], references: [id])
+  fromUserId      String
+  toUser          User       @relation("SwapTo", fields: [toUserId], references: [id])
+  toUserId        String
+  outgoingItems   Item[]     @relation("OutgoingItems")
+  incomingItems   Item[]     @relation("IncomingItems")
+}
+
+enum SwapStatus {
+  PENDING
+  REJECTED
+  ACCEPTED
 }

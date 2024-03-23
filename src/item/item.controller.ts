@@ -28,7 +28,7 @@ export class ItemController {
 
   @UseGuards(AuthGuard)
   @Post('add')
-  async addItem(@Body() itemData: Prisma.ItemCreateInput, @Req() req: ReqType) {
+  addItem(@Body() itemData: Prisma.ItemCreateInput, @Req() req: ReqType) {
     return this.itemService.createItem({
       ...itemData,
       createdBy: { connect: { id: req.user.sub } },
@@ -59,4 +59,6 @@ export class ItemController {
   deleteItem(@Param('id') id: string) {
     return this.itemService.deleteItem({ id });
   }
+
+
 }

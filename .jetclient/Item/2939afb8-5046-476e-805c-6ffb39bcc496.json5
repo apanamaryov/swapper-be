@@ -1,0 +1,39 @@
+{
+  id : "2939afb8-5046-476e-805c-6ffb39bcc496",
+  name : "Item",
+  icon : "FOLDER",
+  sortWeight : 2000000,
+  requests : [
+    {
+      id : "57e679c0-e234-4ac0-9bdb-c8b9a527e539",
+      name : "Add",
+      method : "POST",
+      url : "http://localhost:3000/item/add",
+      headers : [
+        {
+          key : "Content-Type",
+          value : "application/x-www-form-urlencoded"
+        }
+      ],
+      auth : {
+        type : "BEARER",
+        bearer : {
+          token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWYwZmU1YS1iZTk5LTQyNDktOTkzOC02Mjk4OTZjMWY5NTEiLCJlbWFpbCI6InBhbmFtYXJldkBnbWFpbC5jb20iLCJpYXQiOjE3MTExMDkwNTQsImV4cCI6MTcxMTEwOTQxNH0.EQcdDuuwIAPa9FKkHrpRUPgTRy7n5kO9ezcXFnNjf78"
+        }
+      },
+      body : {
+        type : "FORM_URL_ENCODED",
+        urlEncoded : [
+          {
+            key : "name",
+            value : "Item1"
+          },
+          {
+            key : "description",
+            value : "descr1"
+          }
+        ]
+      }
+    }
+  ]
+}
