@@ -5,20 +5,22 @@ import {
   Body,
   Patch,
   Param,
-  Delete, UseGuards, Req,
+  Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { Prisma } from '@prisma/client';
-import {ApiTags} from "@nestjs/swagger";
-import {AuthGuard} from "../auth/auth.guard";
+import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../auth/auth.guard';
 
 type ReqType = Request & {
   user: {
-    sub: string,
-    email: string,
-    iat: number,
-    exp: number,
-  }
+    sub: string;
+    email: string;
+    iat: number;
+    exp: number;
+  };
 };
 
 @Controller('item')
@@ -59,6 +61,4 @@ export class ItemController {
   deleteItem(@Param('id') id: string) {
     return this.itemService.deleteItem({ id });
   }
-
-
 }

@@ -82,7 +82,7 @@
       auth : {
         type : "BEARER",
         bearer : {
-          token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWYwZmU1YS1iZTk5LTQyNDktOTkzOC02Mjk4OTZjMWY5NTEiLCJlbWFpbCI6InBhbmFtYXJldkBnbWFpbC5jb20iLCJpYXQiOjE3MTEwMjY4MDQsImV4cCI6MTcxMTAyNjk4NH0.xRNSUfUyy4dL3TWpPYMfL6XAnedY69HFvzTGWJODovk"
+          token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWYwZmU1YS1iZTk5LTQyNDktOTkzOC02Mjk4OTZjMWY5NTEiLCJlbWFpbCI6InBhbmFtYXJldkBnbWFpbC5jb20iLCJpYXQiOjE3MTExMDgwNTcsImV4cCI6MTcxMTEwODQxN30.aa65nJCX2QfN-8a2oZL6BUxlAHeJQrYu2Px2MXYCzuM"
         }
       }
     },

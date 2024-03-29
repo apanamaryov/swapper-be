@@ -12,14 +12,14 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   role            Role     @default(USER)
-  email           String?  @unique
+  email           String   @unique
   password        String
-  firstName       String
+  firstName       String?
   middleName      String?
-  lastName        String
-  birthDay        String
-  country         String
-  city            String
+  lastName        String?
+  birthDay        String?
+  country         String?
+  city            String?
   deliveryAddress String?
   phone           String?
   isActive        Boolean  @default(true)
@@ -60,7 +60,7 @@ model Swap {
   updatedAt       DateTime   @updatedAt
   createdBy       User       @relation("SwapCreatedBy", fields: [createdByUserId], references: [id])
   createdByUserId String
-  status          SwapStatus @default(PENDING)
+  status          SwapStatus @default(DRAFT)
   fromUser        User       @relation("SwapFrom", fields: [fromUserId], references: [id])
   fromUserId      String
   toUser          User       @relation("SwapTo", fields: [toUserId], references: [id])
@@ -70,7 +70,9 @@ model Swap {
 }
 
 enum SwapStatus {
+  DRAFT
   PENDING
   REJECTED
   ACCEPTED
+  DONE
 }

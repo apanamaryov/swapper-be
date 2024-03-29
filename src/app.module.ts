@@ -7,6 +7,7 @@ import { ItemModule } from './item/item.module';
 import { ConfigModule } from '@nestjs/config';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { SwapModule } from './swap/swap.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     ItemModule,
     ConfigModule.forRoot({ isGlobal: true }),
     CacheModule.register({ ttl: 5, max: 10, isGlobal: true }),
+    SwapModule,
   ],
   controllers: [AppController],
   providers: [
